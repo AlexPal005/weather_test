@@ -15,5 +15,6 @@ export const useGetUsers = (count: number) => {
   return useQuery({
     queryKey: ['getRandomUsers'],
     queryFn: () => getUsers(count),
+    staleTime: 1 * 60 * 1000, // 1 min
   })
 }
