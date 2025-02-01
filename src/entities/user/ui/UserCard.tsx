@@ -50,7 +50,7 @@ export const UserCard = ({ user, onSave, onShowWeather }: UserCardProps) => {
   }
 
   return (
-    <div className="bg-white h-95 border border-gray-200 p-4 rounded-lg shadow-lg w-full sm:w-68 md:w-61 lg:w-61 flex flex-col items-center justify-between">
+    <div className="bg-white h-95 border border-gray-200 p-4 rounded-lg shadow-lg w-75 sm:w-68 md:w-61 lg:w-61 flex flex-col items-center justify-between">
       <div className="flex flex-col items-center justify-center text-center">
         <img
           src={user.picture.large}
@@ -62,7 +62,9 @@ export const UserCard = ({ user, onSave, onShowWeather }: UserCardProps) => {
         </h2>
         <p className="text-sm text-gray-500 mt-1">{user.gender}</p>
         <p className="text-base text-gray-600 mt-2">
-          {user.location.city}, {user.location.country}
+          {`${user.location.city}, ${user.location.country}`.slice(0, 25)}
+          {`${user.location.city}, ${user.location.country}`.length > 25 &&
+            '...'}
         </p>
         <p className="text-blue-600 mt-1 text-sm">{user.email}</p>
         <div className="flex justify-between items-center mt-3 gap-3">
@@ -95,21 +97,21 @@ export const UserCard = ({ user, onSave, onShowWeather }: UserCardProps) => {
         {isUserSaved(user) ? (
           <button
             onClick={() => removeUser(user)}
-            className="cursor-pointer bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md shadow-md transition-all duration-300"
+            className="cursor-pointer w-20 h-10 bg-red-600 hover:bg-red-700 text-white rounded-md shadow-md transition-all duration-300"
           >
             Delete
           </button>
         ) : (
           <button
             onClick={() => onSave(user)}
-            className="cursor-pointer bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md shadow-md transition-all duration-300"
+            className="cursor-pointer w-20 h-10 bg-blue-600 hover:bg-blue-700 text-white rounded-md shadow-md transition-all duration-300"
           >
             Save
           </button>
         )}
         <button
           onClick={() => onShowWeather(user)}
-          className="cursor-pointer bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-md shadow-md transition-all duration-300"
+          className="cursor-pointer w-20 h-10 bg-gray-600 hover:bg-gray-700 text-white rounded-md shadow-md transition-all duration-300"
         >
           Weather
         </button>
