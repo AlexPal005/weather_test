@@ -2,8 +2,10 @@ import axios from 'axios'
 import { useQuery } from '@tanstack/react-query'
 import { User } from '../types/user.ts'
 
+const userApiUrl = import.meta.env.VITE_USER_API_URL
+
 const getUsers = async (count: number): Promise<User[]> => {
-  const response = await axios.get('https://randomuser.me/api/', {
+  const response = await axios.get(userApiUrl, {
     params: { results: count },
   })
   return response.data.results
@@ -11,7 +13,7 @@ const getUsers = async (count: number): Promise<User[]> => {
 
 export const useGetUsers = (count: number) => {
   return useQuery({
-    queryKey: ['getRandomUser'],
+    queryKey: ['getRandomUsers'],
     queryFn: () => getUsers(count),
   })
 }

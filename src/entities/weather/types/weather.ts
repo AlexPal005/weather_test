@@ -42,8 +42,9 @@ export interface WeatherData {
   hourly: Hourly
 }
 
+//convert json to WeatherData type
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-function convertWeatherData(jsonData: any): WeatherData {
+export function convertWeatherData(jsonData: any): WeatherData {
   return {
     latitude: jsonData.latitude,
     longitude: jsonData.longitude,
