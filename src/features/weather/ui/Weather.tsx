@@ -1,6 +1,7 @@
 import { useGetWeatherByCoordinates } from '../../../entities/weather/api/weather.ts'
 import { useEffect } from 'react'
 import { User } from '../../../entities/user/types/user.ts'
+import { IoMdClose } from 'react-icons/io'
 
 interface WeatherProps {
   user: User
@@ -19,21 +20,19 @@ export const Weather = ({ user, onClose }: WeatherProps) => {
   if (!weather) return null
 
   return (
-    <div className="fixed inset-0 z-50">
+    <div className="fixed inset-0 z-50 w-full">
       <div
         className="absolute inset-0 bg-black opacity-40 z-60"
         onClick={onClose}
       ></div>
       <div
-        className="bg-white p-6 rounded-lg shadow-lg w-96 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-70"
+        className="bg-white p-6 rounded-lg shadow-lg w-[90%] sm:w-96 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-70"
         onClick={(e) => e.stopPropagation()}
       >
-        <button
-          className="absolute top-2 right-2 text-xl text-gray-600 hover:text-gray-800 cursor-pointer"
+        <IoMdClose
+          className="absolute top-2 right-2 hover:text-gray-800 cursor-pointer w-6 h-6"
           onClick={onClose}
-        >
-          ×
-        </button>
+        />
 
         <h2 className="text-2xl font-semibold text-gray-800 mb-4">
           Weather in Your Location

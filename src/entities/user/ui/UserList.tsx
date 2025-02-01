@@ -26,10 +26,18 @@ export const UserList = ({ users }: UserListProps) => {
     setSelectedUser(null)
   }
 
-  if (!users) return
+  if (!users || users.length === 0) {
+    return (
+      <div className="flex justify-center min-h-screen items-center">
+        <p className="text-xl text-gray-600">
+          There are no users on the list yet.
+        </p>
+      </div>
+    )
+  }
 
   return (
-    <div className="flex justify-center min-h-screen">
+    <div className="flex items-center min-h-screen flex-col">
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 px-2 py-4">
         {users.map((user) => (
           <UserCard

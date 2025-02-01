@@ -1,8 +1,8 @@
 import { User } from '../types/user.ts'
 import { useSavedUsers } from '../model/useSavedUsers.ts'
 import { useGetWeatherByCoordinates } from '../../weather/api/weather.ts'
-import { useEffect } from 'react'
 import { weatherIcons } from '../../weather/types/weather.ts'
+import { Link } from 'react-router-dom'
 
 const getWeatherIcon = (code: number): string => {
   return weatherIcons[code] ?? '❓'
@@ -20,10 +20,6 @@ export const UserCard = ({ user, onSave, onShowWeather }: UserCardProps) => {
     user.location.coordinates.latitude,
     user.location.coordinates.longitude
   )
-
-  useEffect(() => {
-    console.log(weather)
-  }, [weather])
 
   const minTemperature = () => {
     if (weather?.daily?.time && weather.daily.temperature2mMin) {
@@ -50,7 +46,7 @@ export const UserCard = ({ user, onSave, onShowWeather }: UserCardProps) => {
   }
 
   return (
-    <div className="bg-white h-95 border border-gray-200 p-4 rounded-lg shadow-lg w-75 sm:w-68 md:w-61 lg:w-61 flex flex-col items-center justify-between">
+    <div className="justify-self-center bg-white h-95 border border-gray-200 p-4 rounded-lg shadow-lg w-75 sm:w-68 md:w-61 lg:w-61 flex flex-col items-center justify-between">
       <div className="flex flex-col items-center justify-center text-center">
         <img
           src={user.picture.large}
@@ -61,11 +57,16 @@ export const UserCard = ({ user, onSave, onShowWeather }: UserCardProps) => {
           {user.name.first} {user.name.last}
         </h2>
         <p className="text-sm text-gray-500 mt-1">{user.gender}</p>
-        <p className="text-base text-gray-600 mt-2">
+        <Link
+          to={`https://www.google.com/maps?q=${user.location.coordinates.latitude},${user.location.coordinates.longitude}`}
+          target="_blank"
+          className="text-blue-500 hover:text-gray-400  text-gray-600 text-base mt-2"
+        >
           {`${user.location.city}, ${user.location.country}`.slice(0, 25)}
           {`${user.location.city}, ${user.location.country}`.length > 25 &&
             '...'}
-        </p>
+        </Link>
+
         <p className="text-blue-600 mt-1 text-sm">{user.email}</p>
         <div className="flex justify-between items-center mt-3 gap-3">
           <div className="flex flex-col items-center">
