@@ -13,6 +13,7 @@ const getWeatherByCoordinates = async (
       longitude: longitude,
       current_weather: 1,
       hourly: 'temperature_2m',
+      daily: 'temperature_2m_max,temperature_2m_min',
     },
   })
   return convertWeatherData(response.data)
