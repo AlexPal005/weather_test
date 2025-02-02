@@ -1,9 +1,9 @@
-import { useGetUsers } from '../../../entities/user/api/user.ts'
 import { UserList } from '../../../entities/user/ui/UserList.tsx'
 import { Spinner } from '../../../features/spinner/ui/Sprinner.tsx'
 import { ErrorMessage } from '../../../features/error/ui/ErrorMessage.tsx'
 import { Pagination } from '../../../features/pagination/ui/Pagination.tsx'
 import { useState } from 'react'
+import { useGetUsers } from '../../../entities/user/api/user.ts'
 
 const COUNT_USERS_ON_PAGE = 12
 
