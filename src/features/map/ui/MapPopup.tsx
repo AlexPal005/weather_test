@@ -55,9 +55,9 @@ export const MapPopup = ({
         className="absolute inset-0 bg-black opacity-40 z-60 "
         onClick={onClose}
       />
-      <div className="w-120 h-120 p-8 rounded-lg top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-70  shadow-md absolute bg-white">
+      <div className="w-full h-full sm:w-120 sm:h-120 p-5.5 rounded-lg top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-70  shadow-md absolute bg-white">
         <IoMdClose
-          className="absolute top-2 right-2 hover:text-gray-800 cursor-pointer w-6 h-6"
+          className="absolute top-1 right-1 hover:text-gray-800 cursor-pointer w-6 h-6 z-80"
           onClick={onClose}
         />
         <div ref={mapContainerRef} className="w-full h-full" />

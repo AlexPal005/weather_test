@@ -3,6 +3,7 @@ import { useEffect } from 'react'
 import { User } from '../../../entities/user/types/user.ts'
 import { IoMdClose } from 'react-icons/io'
 import { getWeatherIcon } from '../../../entities/weather/types/weather.ts'
+import { HourlyWeather } from '../../hourlyWeather/ui/HourlyWeather.tsx'
 
 interface WeatherProps {
   user: User
@@ -65,6 +66,7 @@ export const Weather = ({ user, onClose }: WeatherProps) => {
               {weather.currentWeather.windDirection}°
             </span>
           </div>
+          <HourlyWeather weather={weather} />
         </div>
       </div>
     </div>
