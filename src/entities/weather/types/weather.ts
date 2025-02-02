@@ -75,6 +75,10 @@ export const weatherIcons: Record<number, string> = {
   80: '⛈️',
 }
 
+export const getWeatherIcon = (code: number): string => {
+  return weatherIcons[code] ?? '❓'
+}
+
 //convert json to WeatherData type
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function convertWeatherData(jsonData: any): WeatherData {

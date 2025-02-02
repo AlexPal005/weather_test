@@ -1,20 +1,21 @@
 import { User } from '../types/user.ts'
 import { useSavedUsers } from '../model/useSavedUsers.ts'
 import { useGetWeatherByCoordinates } from '../../weather/api/weather.ts'
-import { weatherIcons } from '../../weather/types/weather.ts'
-import { Link } from 'react-router-dom'
-
-const getWeatherIcon = (code: number): string => {
-  return weatherIcons[code] ?? '❓'
-}
+import { getWeatherIcon } from '../../weather/types/weather.ts'
 
 interface UserCardProps {
   user: User
   onSave: (user: User) => void
   onShowWeather: (user: User) => void
+  onShowMap: (user: User) => void
 }
 
-export const UserCard = ({ user, onSave, onShowWeather }: UserCardProps) => {
+export const UserCard = ({
+  user,
+  onShowMap,
+  onSave,
+  onShowWeather,
+}: UserCardProps) => {
   const { isUserSaved, removeUser } = useSavedUsers()
   const { data: weather } = useGetWeatherByCoordinates(
     user.location.coordinates.latitude,
@@ -57,16 +58,14 @@ export const UserCard = ({ user, onSave, onShowWeather }: UserCardProps) => {
           {user.name.first} {user.name.last}
         </h2>
         <p className="text-sm text-gray-500 mt-1">{user.gender}</p>
-        <Link
-          to={`https://www.google.com/maps?q=${user.location.coordinates.latitude},${user.location.coordinates.longitude}`}
-          target="_blank"
-          className="text-blue-500 hover:text-gray-400  text-gray-600 text-base mt-2"
+        <p
+          className="text-base text-gray-600 mt-2 cursor-pointer hover:text-gray-400"
+          onClick={() => onShowMap(user)}
         >
           {`${user.location.city}, ${user.location.country}`.slice(0, 25)}
           {`${user.location.city}, ${user.location.country}`.length > 25 &&
             '...'}
-        </Link>
-
+        </p>
         <p className="text-blue-600 mt-1 text-sm">{user.email}</p>
         <div className="flex justify-between items-center mt-3 gap-3">
           <div className="flex flex-col items-center">

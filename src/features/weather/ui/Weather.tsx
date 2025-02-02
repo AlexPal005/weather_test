@@ -2,6 +2,7 @@ import { useGetWeatherByCoordinates } from '../../../entities/weather/api/weathe
 import { useEffect } from 'react'
 import { User } from '../../../entities/user/types/user.ts'
 import { IoMdClose } from 'react-icons/io'
+import { getWeatherIcon } from '../../../entities/weather/types/weather.ts'
 
 interface WeatherProps {
   user: User
@@ -26,7 +27,7 @@ export const Weather = ({ user, onClose }: WeatherProps) => {
         onClick={onClose}
       ></div>
       <div
-        className="bg-white p-6 rounded-lg shadow-lg w-[90%] sm:w-96 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-70"
+        className="bg-white p-6 rounded-lg shadow-lg w-[90%] sm:w-120 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-70"
         onClick={(e) => e.stopPropagation()}
       >
         <IoMdClose
@@ -34,19 +35,22 @@ export const Weather = ({ user, onClose }: WeatherProps) => {
           onClick={onClose}
         />
 
-        <h2 className="text-2xl font-semibold text-gray-800 mb-4">
-          Weather in Your Location
+        <h2 className="text-2xl font-bold text-blue-600 mb-4 text-center">
+          {`Weather in ${user.location.city}, ${user.location.country}`}
         </h2>
 
         <div className="space-y-3">
           <div className="flex justify-between">
             <span className="font-bold text-gray-700">Time:</span>
-            <span className="text-gray-600">{weather.currentWeather.time}</span>
+            <span className="text-gray-600">
+              {new Date(weather.currentWeather.time).toLocaleString()}
+            </span>
           </div>
           <div className="flex justify-between">
             <span className="font-bold text-gray-700">Temperature:</span>
             <span className="text-gray-600">
-              {weather.currentWeather.temperature}°C
+              {weather.currentWeather.temperature}°C{' '}
+              {getWeatherIcon(weather?.currentWeather.weatherCode)}
             </span>
           </div>
           <div className="flex justify-between">
@@ -59,12 +63,6 @@ export const Weather = ({ user, onClose }: WeatherProps) => {
             <span className="font-bold text-gray-700">Wind Direction:</span>
             <span className="text-gray-600">
               {weather.currentWeather.windDirection}°
-            </span>
-          </div>
-          <div className="flex justify-between">
-            <span className="font-bold text-gray-700">Weather Code:</span>
-            <span className="text-gray-600">
-              {weather.currentWeather.weatherCode}
             </span>
           </div>
         </div>

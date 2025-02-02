@@ -3,6 +3,7 @@ import { Weather } from '../../../features/weather/ui/Weather.tsx'
 import { User } from '../types/user.ts'
 import { useState } from 'react'
 import { useSavedUsers } from '../model/useSavedUsers.ts'
+import { MapPopup } from '../../../features/map/ui/MapPopup.tsx'
 
 interface UserListProps {
   users: User[]
@@ -12,6 +13,7 @@ export const UserList = ({ users }: UserListProps) => {
   const { addUser } = useSavedUsers()
   const [selectedUser, setSelectedUser] = useState<User | null>()
   const [showWeather, setShowWeather] = useState(false)
+  const [showMap, setShowMap] = useState(false)
 
   const handleSaveUser = (user: User) => {
     addUser(user)
@@ -23,6 +25,15 @@ export const UserList = ({ users }: UserListProps) => {
   }
   const handleCloseWeather = () => {
     setShowWeather(false)
+    setSelectedUser(null)
+  }
+  const handleShowMap = (user: User) => {
+    setShowMap(true)
+    setSelectedUser(user)
+  }
+
+  const handleCloseMap = () => {
+    setShowMap(false)
     setSelectedUser(null)
   }
 
@@ -45,11 +56,20 @@ export const UserList = ({ users }: UserListProps) => {
             user={user}
             onSave={handleSaveUser}
             onShowWeather={handleShowWeather}
+            onShowMap={handleShowMap}
           />
         ))}
       </div>
       {showWeather && selectedUser && (
         <Weather user={selectedUser} onClose={handleCloseWeather} />
+      )}
+      {showMap && selectedUser && (
+        <MapPopup
+          latitude={Number(selectedUser.location.coordinates.latitude)}
+          longitude={Number(selectedUser.location.coordinates.longitude)}
+          onClose={handleCloseMap}
+          userImage={selectedUser.picture.medium}
+        />
       )}
     </div>
   )
